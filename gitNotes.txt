@@ -58,7 +58,7 @@ usage: git [--version] [--help] [-c name=value]
 The most commonly used git commands are:
    add        Add file contents to the index
    bisect     Find by binary search the change that introduced a bug
-   branch     List, create, or delete branches
+   branch     List, create, or delete branches josh is aawesome 
    checkout   Checkout a branch or paths to the working tree
    clone      Clone a repository into a new directory
    commit     Record changes to the repository
