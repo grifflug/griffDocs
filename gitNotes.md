@@ -2,81 +2,36 @@
 Scott Chacon
 
 # References
-http://gitref.org
-http://progit.org
+* http://gitref.org
+* http://progit.org
 
 # Commands
-git clone https://github.com/grifflug/gitdemo.git  // pull + setup
-git init                              // starts new .git
-git pull origin master                // fetch + merge
-git fetch origin master               // pull not merge
-git remote 	 	     // show remotes
-git remote remove origin              // removes origin (which is an alias for the git server)
-git remote add theHub https://github.com/gitdemo // add theHub (alias)
-git add -p file	    	     // add changes one at a time
-git add .  		     // add all
-git reset			     // undo git add
-git commit -am 'Lazy'	                // commit + add all
-git push origin master	     // replace origin's master with your current branch
-git branch     	    	     // show branches
-git branch blue 	                // create branch blue at head
-git checkout red 	                // switch to red branch (move head to red)
-git checkout -b maroon red            // create branch maroon at red and switch to maroon
-git merge blue 	       	     // merge blue with current branch, then move head to newly merged version
-git log -p 		     // show patch
-git log --stat		     // something to do with stats
-git log jMaster ^rMaster              // Everything unique to Josh's master compared to Rob's master
+* git clone https://github.com/grifflug/gitdemo.git  // pull + setup
+* git init                              // starts new .git
+* git pull origin master                // fetch + merge
+* git fetch origin master               // pull not merge
+* git remote 	 	     // show remotes
+* git remote remove origin              // removes origin (which is an alias for the git server)
+* git remote add theHub https://github.com/gitdemo // add theHub (alias)
+* git add -p file	    	     // add changes one at a time
+* git add .  		     // add all
+* git reset			     // undo git add
+* git commit -am 'Lazy'	                // commit + add all
+* git push origin master	     // replace origin's master with your current branch
+* git branch     	    	     // show branches
+* git branch blue 	                // create branch blue at head
+* git checkout red 	                // switch to red branch (move head to red)
+* git checkout -b maroon red            // create branch maroon at red and switch to maroon
+* git merge blue 	       	     // merge blue with current branch, then move head to newly merged version
+* git log -p 		     // show patch
+* git log --stat		     // something to do with stats
+* git log jMaster ^rMaster              // Everything unique to Josh's master compared to Rob's master
 
 # Config
-git config --global color.ui true
-git config --global alias.lol "log --oneline --graph --decorate"
-git config --global alias.st "status -s" 		                  // simple one line
-git config --global alias.cam “commit -am”		                  // Commit all w/ message
+* git config --global color.ui true
+* git config --global alias.lol "log --oneline --graph --decorate"
+* git config --global alias.st "status -s" 		                  // simple one line
+* git config --global alias.cam “commit -am”		                  // Commit all w/ message
 
 # Bash tools
 Q: How did he get [~/ (master)] as his bash prompt?
-
-
-
-# Auto Complete?!
-cd Downloads/
-curl https://raw.github.com/git/git/master/contrib/completion/git-completion.bash -OL
-mv git-completion.bash Developer/
-
-
-
-
-# Konsole
-
-➜ git --help
-usage: git [--version] [--help] [-c name=value]
-           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
-           [-p|--paginate|--no-pager] [--no-replace-objects] [--bare]
-           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
-           <command> [<args>]
-
-The most commonly used git commands are:
-   add        Add file contents to the index
-   bisect     Find by binary search the change that introduced a bug
-   branch     List, create, or delete branches
-   checkout   Checkout a branch or paths to the working tree
-   clone      Clone a repository into a new directory
-   commit     Record changes to the repository
-   diff       Show changes between commits, commit and working tree, etc
-   fetch      Download objects and refs from another repository
-   grep       Print lines matching a pattern
-   init       Create an empty Git repository or reinitialize an existing one
-   log        Show commit logs
-   merge      Join two or more development histories together
-   mv         Move or rename a file, a directory, or a symlink
-   pull       Fetch from and merge with another repository or a local branch
-   push       Update remote refs along with associated objects
-   rebase     Forward-port local commits to the updated upstream head
-   reset      Reset current HEAD to the specified state
-   rm         Remove files from the working tree and from the index
-   show       Show various types of objects
-   status     Show the working tree status
-   tag        Create, list, delete or verify a tag object signed with GPG
-
-See 'git help <command>' for more information on a specific command.
-
