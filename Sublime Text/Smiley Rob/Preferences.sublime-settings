@@ -4,14 +4,14 @@
 	"auto_id_class": true,
 	"bold_folder_labels": true,
 	"close_windows_when_empty": true,
-	"color_scheme": "Packages/Boron Color Scheme/Boron.tmTheme",
+	"color_scheme": "Packages/User/Samuel's decent (SL).tmTheme",
 	"copy_with_empty_selection": false,
 	"create_window_at_startup": true,
 	"drag_text": false,
 	"ensure_newline_at_eof_on_save": true,
 	"fade_fold_buttons": false,
 	"font_face": "monaco",
-	"font_size": 14.0,
+	"font_size": 14.0, // I change this regularly
 	"ignored_packages":
 	[
 		"SublimeREPL",
