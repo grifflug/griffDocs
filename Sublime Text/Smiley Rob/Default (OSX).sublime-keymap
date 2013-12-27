@@ -1,0 +1,31 @@
+[
+    // DEFAULTS
+    {"keys": ["super+shift+v"], "command": "paste"},
+    {"keys": ["super+v"], "command": "paste_and_indent"},
+    {"keys": ["super+shift+r"], "command": "reindent","args": {"single_line": true}},
+    //{ "keys": ["super+alt+ctrl+["], "command": "fold" },
+    {"keys": ["super+alt+right"], "command": "unfold"},
+
+    // BRACKETS
+    // Fold contents between brackets
+    {
+        "keys": ["super+alt+left"],
+        "command": "bh_key",
+        "args":{
+            "plugin": {
+                "type": ["__all__"],
+                "command" : "bh_modules.foldbracket"
+            }
+        }
+    },
+
+    // Toggle high visibility mode
+    {"keys": ["ctrl+alt+super+b"],"command": "bh_toggle_high_visibility"},
+    {"keys": ["ctrl+t"], "command": "side_bar_new_file2"},
+    {"keys": ["f2"], "command": "side_bar_rename"},
+    {"keys": ["ctrl+alt+f"], "command": "side_bar_find_files_path_containing"},
+
+    // Got to beggining of line with Command Left
+    { "keys": ["super+left"], "command": "move_to", "args": {"to": "hardbol", "extend": false} },
+    { "keys": ["shift+super+left"], "command": "move_to", "args": {"to": "hardbol", "extend": true} }
+]
