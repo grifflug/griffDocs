@@ -6,3 +6,5 @@ Got Sublime Text? Then share your
 > Packages
 > Tips
 
+Don't got Sublime Text? 
+Try v3 from http://www.sublimetext.com/
