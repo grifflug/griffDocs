@@ -1,0 +1,13 @@
+{
+	"color_scheme": "Packages/User/Samuel's decent (SL).tmTheme",
+	"coloured_folder_glyphs": true,
+	"highlighed_modified": true,
+	"highlight_modified_tabs": true,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"sidebar_folders": true,
+	"theme": "Nil.sublime-theme",
+	"translate_tabs_to_spaces": true
+}
