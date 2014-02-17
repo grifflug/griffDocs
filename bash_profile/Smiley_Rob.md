@@ -2,6 +2,12 @@
 
 This is a snapshot of my hidden profiles in my home directory. 
 
+![Smiley Rob's Terminal](http://i.imgur.com/mdnN8tn.png)
+
+## Terminal
+
+Profile is set to **Pro**, with font set to **Monaco 10 Pt**. (with Antialias disabled).
+
 ## ~/.bash_profile
 
 Notice that this .bash_profile loads in a collection of other dotfiles.
@@ -157,3 +163,18 @@ If you're using OSX, it doesn't have Linux's `ssh-copy-id` command... so I made 
 There's more here in real life, except I'm not sure what it all does (I ripped it from someone else).
 
     syntax on
+
+## /etc/motd
+
+Not really a dotfile, but interesting nevertheless. <br>
+`hack || die`. That's my message of the day, always.
+
+	
+	 __  __     ______     ______     __  __           __     __           _____     __     ______    
+	/\ \_\ \   /\  __ \   /\  ___\   /\ \/ /          /\ \   /\ \         /\  __-.  /\ \   /\  ___\   
+	\ \  __ \  \ \  __ \  \ \ \____  \ \  _"-.        \ \ \  \ \ \        \ \ \/\ \ \ \ \  \ \  __\   
+	 \ \_\ \_\  \ \_\ \_\  \ \_____\  \ \_\ \_\        \ \_\  \ \_\        \ \____-  \ \_\  \ \_____\ 
+	  \/_/\/_/   \/_/\/_/   \/_____/   \/_/\/_/         \/_/   \/_/         \/____/   \/_/   \/_____/ 
+	                                                                                                  
+	
+	
