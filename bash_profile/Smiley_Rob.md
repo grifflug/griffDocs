@@ -133,8 +133,9 @@ If you're using OSX, it doesn't have Linux's `ssh-copy-id` command... so I made 
       lol = log --oneline --graph --decorate
 	  st = status -s
 	  co = checkout
-	  cob = !git checkout -b $1 && git branch
+	  cm = commit -m
 	  cam = commit -am
+	  cob = !git checkout -b $1 && git branch
 	  as = !git add --all && git st
     [credential]
       helper = osxkeychain
