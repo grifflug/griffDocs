@@ -1,6 +1,6 @@
 # Smiley Rob's dotfiles
 
-This is a snapshot of my hidden profiles in my home directory. 
+This is a snapshot of my hidden profiles in my home directory.
 
 ![Smiley Rob's Terminal](http://i.imgur.com/mdnN8tn.png)
 
@@ -8,12 +8,18 @@ This is a snapshot of my hidden profiles in my home directory.
 
 Profile is set to **Pro**, with font set to **Monaco 10 Pt**. (with Antialias disabled).
 
+## ~/.dotfiles Directory
+
+I have created a directory called `~/.dotfiles` which contains symlinks to these files. This makes it easier to access just dotfiles and not your whole home folder.
+
+For a script on how to generate one yourself, visit [my gist](https://gist.github.com/rjchatfield/9133503).
+
 ## ~/.bash_profile
 
 Notice that this .bash_profile loads in a collection of other dotfiles.
 
     #!/bin/bash
-	
+
 	for file in ~/.{bash_prompt,exports,aliases,functions,git-completion.bash,profile}; do
   		[ -r "$file" ] && source "$file"
   		echo "Loading $file"
@@ -24,7 +30,7 @@ Notice that this .bash_profile loads in a collection of other dotfiles.
 	[ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2)" scp sftp ssh
 
 	PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-	[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+	[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*	
 
 
 ## ~/.bash_prompt
@@ -32,18 +38,18 @@ Notice that this .bash_profile loads in a collection of other dotfiles.
 This handles my super snazzy `PS1` which tells you which git branch I'm in.
 
 	#!/bin/bash
-	
+
 	# @gf3’s Sexy Bash Prompt, inspired by “Extravagant Zsh Prompt”
 	# Shamelessly copied from https://github.com/gf3/dotfiles
-	
+
 	default_username='rob'
-	
+
 	if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
 	        export TERM=gnome-256color
 	elif infocmp xterm-256color >/dev/null 2>&1; then
 	        export TERM=xterm-256color
 	fi
-	
+
 	if tput setaf 1 &> /dev/null; then
 	        tput sgr0
 	        if [[ $(tput colors) -ge 256 ]] 2>/dev/null; then
@@ -70,46 +76,46 @@ This handles my super snazzy `PS1` which tells you which git branch I'm in.
 	        BOLD=""
 	        RESET="\033[m"
 	fi
-	
-	
+
+
 	function git_info() {
 	        # check if we're in a git repo
 	        git rev-parse --is-inside-work-tree &>/dev/null || return
-	
+
 	        # quickest check for what branch we're on
 	        branch=$(git symbolic-ref -q HEAD | sed -e 's|^refs/heads/||')
-	
+
 	        # check if it's dirty (via github.com/sindresorhus/pure)
 	        dirty=$(git diff --quiet --ignore-submodules HEAD &>/dev/null; [ $? -eq 1 ]&& echo -e "*")
-	
+
 	        echo $WHITE" on "$PURPLE$branch$dirty
 	}
-	
+
 	# Only show username/host if not default
 	function usernamehost() {
 	        if [ $USER != $default_username ]; then echo "${MAGENTA}$USER ${WHITE}at ${ORANGE}$HOSTNAME $WHITEin "; fi
 	}
-	
+
 	# iTerm Tab and Title Customization and prompt customization
 	# http://sage.ucsc.edu/xtal/iterm_tab_customization.html
-	
+
 	# Put the string " [bash]   hostname::/full/directory/path"
 	# in the title bar using the command sequence
 	# \[\e]2;[bash]   \h::\]$PWD\[\a\]
-	
+
 	# Put the penultimate and current directory
 	# in the iterm tab
 	# \[\e]1;\]$(basename $(dirname $PWD))/\W\[\a\]
-	
+
 	PS1="\n\[\e]2;$PWD\[\a\]\[\e]1;\]$(basename "$(dirname "$PWD")")/\W\[\a\]${BOLD}\$(usernamehost)\[$GREEN\]\w\$(git_info)\[$WHITE\]\n\$ \[$RESET\]"
 
 ## ~/.aliases
 
 Check out that last alias to cd into the right folder, clear the screen, then give me the git status of what is dirty in this branch.
-	
+
 	#!/bin/bash
-	
-	alias BASH_EDIT='subl -nw ~/.bash_profile; echo NOW OPENING .bash_profile in SUBLIME TEXT' # Edit .bash_profile Alias
+
+	alias BASH_EDIT='subl -nw ~/.dotfiles ; echo NOW OPENING ~/.dotfiles in SUBLIME TEXT' # Edit .bash_profile
 
 	# 2503ICT Web Programming
 	WEBPROGRAMMING='/Users/iRC/Dropbox/01_University/2503ICT/workspace/auction_app'
@@ -120,7 +126,7 @@ Check out that last alias to cd into the right folder, clear the screen, then gi
 If you're using OSX, it doesn't have Linux's `ssh-copy-id` command... so I made one.
 
 	#!/bin/bash
-	
+
 	# Pass in the username@server
 	ssh_copy_id() {
 	  cat ~/.ssh/id_rsa.pub | ssh "$@" 'cat >> ~/.ssh/authorized_keys' ;
@@ -149,13 +155,13 @@ If you're using OSX, it doesn't have Linux's `ssh-copy-id` command... so I made 
 ## ~/.bashrc
 
     #!/bin/bash
-	
+
 	PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 ## ~/.gemrc
 
     #!/bin/bash
-        
+
 	gem: --no-document
 
 ## ~/.vimrc
@@ -169,12 +175,12 @@ There's more here in real life, except I'm not sure what it all does (I ripped i
 Not really a dotfile, but interesting nevertheless. <br>
 `hack || die`. That's my message of the day, always.
 
-	
-	 __  __     ______     ______     __  __           __     __           _____     __     ______    
-	/\ \_\ \   /\  __ \   /\  ___\   /\ \/ /          /\ \   /\ \         /\  __-.  /\ \   /\  ___\   
-	\ \  __ \  \ \  __ \  \ \ \____  \ \  _"-.        \ \ \  \ \ \        \ \ \/\ \ \ \ \  \ \  __\   
-	 \ \_\ \_\  \ \_\ \_\  \ \_____\  \ \_\ \_\        \ \_\  \ \_\        \ \____-  \ \_\  \ \_____\ 
-	  \/_/\/_/   \/_/\/_/   \/_____/   \/_/\/_/         \/_/   \/_/         \/____/   \/_/   \/_____/ 
-	                                                                                                  
-	
-	
+
+	 __  __     ______     ______     __  __           __     __           _____     __     ______
+	/\ \_\ \   /\  __ \   /\  ___\   /\ \/ /          /\ \   /\ \         /\  __-.  /\ \   /\  ___\
+	\ \  __ \  \ \  __ \  \ \ \____  \ \  _"-.        \ \ \  \ \ \        \ \ \/\ \ \ \ \  \ \  __\
+	 \ \_\ \_\  \ \_\ \_\  \ \_____\  \ \_\ \_\        \ \_\  \ \_\        \ \____-  \ \_\  \ \_____\
+	  \/_/\/_/   \/_/\/_/   \/_____/   \/_/\/_/         \/_/   \/_/         \/____/   \/_/   \/_____/
+
+
+
