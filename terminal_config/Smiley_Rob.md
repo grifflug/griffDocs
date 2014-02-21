@@ -124,6 +124,9 @@ alias BASH_EDIT='subl -nw ~/.dotfiles ; echo NOW OPENING ~/.dotfiles in SUBLIME 
 # 2503ICT Web Programming
 WEBPROGRAMMING='/Users/iRC/Dropbox/01_University/2503ICT/workspace/auction_app'
 alias CD_AUCTION_APP='cd $WEBPROGRAMMING ; clear ; git st'
+
+# tree is the new ls
+alias tree='tree -ACL 2 --dirsfirst'
 ```
 
 ## ~/.functions
