@@ -21,9 +21,11 @@ Notice that this .bash_profile loads in a collection of other dotfiles.
 ``` Bash
 #!/bin/bash
 
-for file in ~/.{bash_prompt,exports,aliases,functions,git-completion.bash,profile}; do
-	[ -r "$file" ] && source "$file"
-	echo "Loading $file"
+declare -a DOTFILES_ARR=(~/.bash_prompt ~/.exports ~/.aliases ~/.functions ~/.git-completion.bash ~/.profile)
+
+for file in ${DOTFILES_ARR[@]}; do
+  echo "Loading $file"
+  [ -r $file ] && source $file
 done
 unset file
 
@@ -127,6 +129,24 @@ alias CD_AUCTION_APP='cd $WEBPROGRAMMING ; clear ; git st'
 
 # tree is the new ls
 alias tree='tree -ACL 2 --dirsfirst'
+
+# -- FROM @PAULIRISH --
+# Always use color output for `ls`
+alias ls="command ls -G"
+# For Linux
+# alias ls="command ls --color"
+
+# `cat` with beautiful colors. requires Pygments installed.
+#                              sudo easy_install Pygments
+alias CAT='pygmentize -O style=monokai -f console256 -g'
+
+# Hide/show all desktop icons (useful when presenting)
+alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+# -- END @PAULIRISH --
+
+# APACHE DERBY
+alias ij='java org.apache.derby.tools.ij'
 ```
 
 ## ~/.functions
