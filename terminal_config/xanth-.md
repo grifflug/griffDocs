@@ -28,7 +28,7 @@ if [ $bashrcpl = "0" ] || [ "$(whoami)" = root ]; then
         PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
     fi
 else
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[0;32m\]➤\[\03will work 3[01;34m\] '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[0;32m\]➤\[\033[01;34m\] '
 fi
 ```
 
@@ -44,7 +44,7 @@ alias longp='echo "0" > .bashrcpl & source ~/.bashrc &> /dev/null'
 These aliases write a ``0`` or ``1`` respectively to the .bashrcpl file and reload the .bashrc piping most output to /dev/null.
 
 # Color For Less
-By default less doesn't have any coloring this code block fixes that. Just chuck this at the botom of your .bashrc and it will work fine.
+By default less doesn't have any coloring this code block fixes that. Just chuck this at the botom of your ``.bashrc``.
 ```
 export LESS='-R'
 export LESSOPEN='|~/.lessfilter %s'
