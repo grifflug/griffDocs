@@ -28,7 +28,7 @@ if [ $bashrcpl = "0" ] || [ "$(whoami)" = root ]; then
         PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
     fi
 else
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[0;32m\]➤\[\033[01;34m\] '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[0;32m\]➤\[\03will work 3[01;34m\] '
 fi
 ```
 
@@ -42,6 +42,37 @@ alias longp='echo "0" > .bashrcpl & source ~/.bashrc &> /dev/null'
 ```
 
 These aliases write a ``0`` or ``1`` respectively to the .bashrcpl file and reload the .bashrc piping most output to /dev/null.
+
+# Color For Less
+By default less doesn't have any coloring this code block fixes that. Just chuck this at the botom of your .bashrc and it will work fine.
+```
+export LESS='-R'
+export LESSOPEN='|~/.lessfilter %s'
+```
+
+and create a .lessfilter file in your home directory
+```
+#!/bin/sh
+case "$1" in
+    *.awk|*.groff|*.java|*.js|*.m4|*.php|*.pl|*.pm|*.pod|*.sh|\
+    *.ad[asb]|*.asm|*.inc|*.[ch]|*.[ch]pp|*.[ch]xx|*.cc|*.hh|\
+    *.lsp|*.l|*.pas|*.p|*.xml|*.xps|*.xsl|*.axp|*.ppd|*.pov|\
+    *.diff|*.patch|*.py|*.rb|*.sql|*.ebuild|*.eclass)
+        pygmentize -f 256 "$1";;
+    .bashrc|.bash_aliases|.bash_environment)
+        pygmentize -f 256 -l sh "$1"
+        ;;
+    *)
+        grep "#\!/bin/bash" "$1" > /dev/null
+        if [ "$?" -eq "0" ]; then
+            pygmentize -f 256 -l sh "$1"
+        else
+            exit 1
+        fi
+esac
+
+exit 0
+```
 
 ## ~/.ghci
 
