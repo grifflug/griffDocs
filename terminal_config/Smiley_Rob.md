@@ -130,11 +130,16 @@ alias CD_AUCTION_APP='cd $WEBPROGRAMMING ; clear ; git st'
 # tree is the new ls
 alias tree='tree -ACL 2 --dirsfirst'
 
-# -- FROM @PAULIRISH --
+# Detect which `ls` flavor is in use
+if ls --color > /dev/null 2>&1; then # GNU `ls`
+    colorflag="--color"
+else # OS X `ls`
+    colorflag="-G"
+fi
+
 # Always use color output for `ls`
-alias ls="command ls -G"
-# For Linux
-# alias ls="command ls --color"
+alias ls="command ls ${colorflag}"
+export LS_COLORS='no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.ogg=01;35:*.mp3=01;35:*.wav=01;35:'
 
 # `cat` with beautiful colors. requires Pygments installed.
 #                              sudo easy_install Pygments
@@ -143,10 +148,30 @@ alias CAT='pygmentize -O style=monokai -f console256 -g'
 # Hide/show all desktop icons (useful when presenting)
 alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
-# -- END @PAULIRISH --
 
-# APACHE DERBY
+# Show/hide hidden files in Finder
+alias showhidden="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hidehidden="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
+# Apache Derby DB
 alias ij='java org.apache.derby.tools.ij'
+
+# UMLet
+alias umlet='open /Applications/Umlet/umlet.jar'
+
+# Reload the shell (i.e. invoke as a login shell)
+alias reload="exec $SHELL -l"
+
+# Lock the screen (when going AFK)
+alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+
+# IP addresses
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en1"
+
+# Many flavours of sudo
+alias yolo='sudo'
+alias please='sudo'
 ```
 
 ## ~/.functions
@@ -159,6 +184,49 @@ If you're using OSX, it doesn't have Linux's `ssh-copy-id` command... so I made 
 # Pass in the username@server
 ssh_copy_id() {
 	cat ~/.ssh/id_rsa.pub | ssh "$@" 'cat >> ~/.ssh/authorized_keys' ;
+}
+
+# Pass in the name of the master branch you wish to push to orgin
+GIT_PUSH_SHUFFLE() {
+  local currentBranchName=`git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1/"`
+  local otherBranchName=$@
+  echo You are in branch: \'$currentBranchName\'
+  git co $otherBranchName
+  echo Merging \'$currentBranchName\' with \'$otherBranchName\'
+  git merge $currentBranchName
+  echo Pushing to \'origin\'
+  git push origin
+  git co $currentBranchName
+}
+
+# Edit dotfiles Alias
+dotfile_edit() {
+  subl -nw ~/.bash_profile
+  for file in ~/.{bash_prompt,exports,aliases,functions,git-completion.bash,profile}; do
+    [ -r "$file" ] && source "$file"
+  done
+  unset file
+  echo NOW OPENING dotfiles in SUBLIME TEXT
+}
+
+# Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
+update() {
+  echo
+  echo -- UPDATE: OS X Software --
+    sudo softwareupdate -i -a
+  echo
+  echo -- UPDATE: Homebrew --
+    brew update
+    brew upgrade
+    brew cleanup
+  echo
+  echo -- UPDATE: NPM --
+    npm update npm -g
+    npm update -g
+  echo
+  echo -- UPDATE: Gems --
+    sudo gem update --system
+    sudo gem update
 }
 ```
 
@@ -173,12 +241,31 @@ ssh_copy_id() {
 [color]
 	ui = true
 [alias]
-	lol = log --oneline --graph --decorate
-	st = status -s
-	co = checkout
-	cm = commit -m
-	cam = commit -am
-	as = !git add --all && git st
+    #log
+    lol = log --oneline --graph --pretty='format:%C(auto)%d %s%Creset %>|(60)%C(dim)(%ar) %h%Creset'
+    changes = log --stat --graph --pretty='format:%C(green bold)%s%Creset %n%C(dim)%h (%ar) [%cn]%Creset%C(auto)%d%Creset%n'
+    summary = shortlog --reverse --pretty='format:%C(dim)(%ar)%Creset%C(auto)%d %s%Creset'
+    st = status -s
+    co = checkout -B
+
+    as = !git add --all && git st
+
+    # commit
+    cm = commit -m                  # commit with message
+    cam = commit -am                # commit all with message
+    amend = commit --amend          # ammend your last commit
+    ammend = commit --amend         # ammend your last commit
+
+    # reset
+    unstage = reset HEAD            # remove files from index (tracking)
+    uncommit = reset --soft HEAD^   # go back before last commit, with files in uncommitted state
+
+    # diff
+    last = diff HEAD^                 # diff last committed change
+
+    # via http://blog.apiaxle.com/post/handy-git-tips-to-stop-you-getting-fired/
+    snapshot = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
+    snapshots = !git stash list --grep snapshot
 [credential]
 	helper = osxkeychain
 ```
